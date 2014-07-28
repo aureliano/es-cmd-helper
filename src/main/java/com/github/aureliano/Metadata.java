@@ -1,4 +1,4 @@
-package br.gov.mp.siconv;
+package com.github.aureliano;
 
 public interface Metadata {
 

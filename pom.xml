@@ -33,7 +33,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>br.gov.mp.siconv.Application</mainClass>
+							<mainClass>com.github.aureliano.Application</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

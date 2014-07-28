@@ -1,11 +1,12 @@
-package br.gov.mp.siconv;
+package com.github.aureliano;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.ParseException;
 
-import br.gov.mp.siconv.cli.CommandExecutor;
-import br.gov.mp.siconv.cli.OptionsBuilder;
+import com.github.aureliano.cli.CommandExecutor;
+import com.github.aureliano.cli.OptionsBuilder;
+
 
 public class AppCli {
 

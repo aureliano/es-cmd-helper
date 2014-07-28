@@ -1,9 +1,10 @@
-package br.gov.mp.siconv.cli;
+package com.github.aureliano.cli;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 
-import br.gov.mp.siconv.cli.commands.CommandFactory;
+import com.github.aureliano.cli.commands.CommandFactory;
+
 
 public class CommandExecutor {
 

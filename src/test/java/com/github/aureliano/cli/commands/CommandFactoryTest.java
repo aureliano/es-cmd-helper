@@ -1,7 +1,12 @@
-package br.gov.mp.siconv.cli.commands;
+package com.github.aureliano.cli.commands;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.github.aureliano.cli.commands.CleanCmd;
+import com.github.aureliano.cli.commands.CommandFactory;
+import com.github.aureliano.cli.commands.HelpCmd;
+import com.github.aureliano.cli.commands.VersionCmd;
 
 public class CommandFactoryTest {
 

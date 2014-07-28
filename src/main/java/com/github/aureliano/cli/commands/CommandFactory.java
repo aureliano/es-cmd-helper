@@ -1,4 +1,4 @@
-package br.gov.mp.siconv.cli.commands;
+package com.github.aureliano.cli.commands;
 
 public final class CommandFactory {
 

@@ -1,12 +1,14 @@
-package br.gov.mp.siconv.cli;
+package com.github.aureliano.cli;
 
 import org.apache.commons.cli.Options;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.gov.mp.siconv.cli.commands.CleanCmd;
-import br.gov.mp.siconv.cli.commands.HelpCmd;
-import br.gov.mp.siconv.cli.commands.VersionCmd;
+import com.github.aureliano.cli.OptionsBuilder;
+import com.github.aureliano.cli.commands.CleanCmd;
+import com.github.aureliano.cli.commands.HelpCmd;
+import com.github.aureliano.cli.commands.VersionCmd;
+
 
 public class OptionsBuilderTest {
 

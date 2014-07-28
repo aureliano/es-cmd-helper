@@ -1,9 +1,10 @@
-package br.gov.mp.siconv.cli.commands;
+package com.github.aureliano.cli.commands;
 
 import org.apache.commons.cli.HelpFormatter;
 
-import br.gov.mp.siconv.Metadata;
-import br.gov.mp.siconv.cli.OptionsBuilder;
+import com.github.aureliano.Metadata;
+import com.github.aureliano.cli.OptionsBuilder;
+
 
 public class HelpCmd implements ICommand {
 

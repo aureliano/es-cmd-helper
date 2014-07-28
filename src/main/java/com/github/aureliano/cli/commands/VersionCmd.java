@@ -1,6 +1,6 @@
-package br.gov.mp.siconv.cli.commands;
+package com.github.aureliano.cli.commands;
 
-import br.gov.mp.siconv.Metadata;
+import com.github.aureliano.Metadata;
 
 public class VersionCmd implements ICommand {
 
