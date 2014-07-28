@@ -13,12 +13,13 @@ public class VersionCmd implements ICommand {
 
 	@Override
 	public void execute() {
+		Metadata metadata = Metadata.getInstance();
 		StringBuilder s = new StringBuilder()
-			.append(Metadata.APP_NAME)
+			.append(metadata.getAppName())
 			.append(" ")
-			.append(Metadata.RELEASE_VERSION)
-			.append(" (" + Metadata.RELEASE_DATE + ")")
-			.append(" [Java " + Metadata.JAVA_VERSION + "]");
+			.append(metadata.getReleaseVersion())
+			.append(" (" + metadata.getReleaseDate() + ")")
+			.append(" [Java " + metadata.getJavaVersion() + "]");
 		System.out.println(s.toString());
 	}
 }

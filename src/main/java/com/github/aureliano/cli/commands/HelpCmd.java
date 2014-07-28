@@ -5,7 +5,6 @@ import org.apache.commons.cli.HelpFormatter;
 import com.github.aureliano.Metadata;
 import com.github.aureliano.cli.OptionsBuilder;
 
-
 public class HelpCmd implements ICommand {
 
 	public static final String NAME = "help";
@@ -17,19 +16,20 @@ public class HelpCmd implements ICommand {
 	
 	@Override
 	public void execute() {
+		Metadata metadata = Metadata.getInstance();
 		String header = "";
 		String footer = new StringBuilder("\n\nProject Home  - ")
-			.append(Metadata.PROJECT_HOME)
+			.append(metadata.getProjectHome())
 			.append("\nSource Code   - ")
-			.append(Metadata.SCM_HOME)
+			.append(metadata.getScmHome())
 			.append("\nDocumentation - ")
-			.append(Metadata.DOCUMENTATION)
+			.append(metadata.getDocumentation())
 			.append("\nJavaDoc       - ")
-			.append(Metadata.JAVADOC)
+			.append(metadata.getJavadoc())
 			.toString();
 		
 		new HelpFormatter().printHelp(
-			Metadata.APP_NAME,
+			metadata.getAppName(),
 			header,
 			OptionsBuilder.buildDefaultOptions(),
 			footer

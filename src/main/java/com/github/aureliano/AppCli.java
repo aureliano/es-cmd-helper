@@ -9,7 +9,7 @@ import com.github.aureliano.cli.OptionsBuilder;
 
 
 public class AppCli {
-
+	
 	public void executeCommandLine(String[] args) {
 		CommandLineParser parser = new BasicParser();
 		try {
