@@ -4,6 +4,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 
+import br.gov.mp.siconv.cli.commands.CleanCmd;
 import br.gov.mp.siconv.cli.commands.HelpCmd;
 import br.gov.mp.siconv.cli.commands.VersionCmd;
 
@@ -31,8 +32,19 @@ public final class OptionsBuilder {
 		Options opt = new Options();
 		opt.addOption(buildHelpOption());
 		opt.addOption(buildVersionOption());
+		opt.addOption(buildCleanOption());
 		
 		return opt;
+	}
+	
+	@SuppressWarnings("static-access")
+	private static final Option buildCleanOption() {
+		return OptionBuilder
+				.hasArg(false)
+				.isRequired(false)
+				.withLongOpt(CleanCmd.NAME)
+				.withDescription(CleanCmd.DESCRIPTION)
+				.create('c');
 	}
 	
 	@SuppressWarnings("static-access")

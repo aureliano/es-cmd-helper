@@ -11,6 +11,8 @@ public final class CommandFactory {
 			return new HelpCmd();
 		} else if (VersionCmd.NAME.equals(name)) {
 			return new VersionCmd();
+		} else if (CleanCmd.NAME.equals(name)) {
+			return new CleanCmd();
 		} else {
 			throw new IllegalArgumentException("There is no such command '" + name + "'");
 		}
