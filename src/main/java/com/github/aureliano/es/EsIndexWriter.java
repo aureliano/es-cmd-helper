@@ -1,5 +1,7 @@
 package com.github.aureliano.es;
 
+import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.client.Client;
@@ -32,8 +34,20 @@ public class EsIndexWriter {
 		return this.getElasticSearchIndexer(indexClass).indexExist();
 	}
 	
+	public boolean indexExist(String indexName) {
+		return this.getElasticSearchIndexer(indexName).indexExist();
+	}
+	
 	public PutMappingResponse createMapping(Class<?> indexClass) {
 		return this.getElasticSearchIndexer(indexClass).createMapping(indexClass);
+	}
+	
+	public CreateIndexResponse createIndex(String indexName) {
+		return this.getElasticSearchIndexer(indexName).createIndex();
+	}
+	
+	public DeleteIndexResponse deleteIndex(String indexName) {
+		return this.getElasticSearchIndexer(indexName).deleteIndex();
 	}
 	
 	public String getMapping(Class<?> indexClass) {
@@ -48,6 +62,10 @@ public class EsIndexWriter {
 		this.validateIndexClass(indexClass);
 		
 		String indexName = indexClass.getAnnotation(ESIndex.class).name();
+		return this.getElasticSearchIndexer(indexName);
+	}
+	
+	private ElasticSearchIndexer getElasticSearchIndexer(String indexName) {
 		ElasticSearchConfig esConfig = ElasticSearchConfig.getInstance();
 		Client client = new TransportClient().addTransportAddress(
 				new InetSocketTransportAddress(esConfig.getElasticSearchHost(), esConfig.getTransportClientPort()));

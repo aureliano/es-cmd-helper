@@ -12,7 +12,7 @@ import com.github.aureliano.es.EsIndexWriter;
 
 public class MappingCmd implements ICommand {
 
-	private static final Logger LOGGER = Logger.getLogger(MappingCmd.class);
+	private static final Logger logger = Logger.getLogger(MappingCmd.class);
 	private static final String[] ACTIONS = new String[] { "create", "get", "delete" };
 	
 	public static final String NAME = "mapping";
@@ -28,7 +28,7 @@ public class MappingCmd implements ICommand {
 	
 	@Override
 	public void execute(Option option) {
-		LOGGER.info("Execute Mapping command");
+		logger.info("Execute Mapping command");
 		this.loadParameters(option);
 		this.validateParamaters();
 		
@@ -36,7 +36,7 @@ public class MappingCmd implements ICommand {
 	}
 	
 	private void executeAction() {
-		LOGGER.info("Executing action " + this.action + " mapping");
+		logger.info("Executing action " + this.action + " mapping");
 		
 		if (this.action.equals("create")) {
 			this.executeCreateMapping();

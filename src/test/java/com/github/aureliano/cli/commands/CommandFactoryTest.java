@@ -3,11 +3,6 @@ package com.github.aureliano.cli.commands;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.aureliano.cli.commands.CleanCmd;
-import com.github.aureliano.cli.commands.CommandFactory;
-import com.github.aureliano.cli.commands.HelpCmd;
-import com.github.aureliano.cli.commands.VersionCmd;
-
 public class CommandFactoryTest {
 
 	@Test
@@ -16,6 +11,7 @@ public class CommandFactoryTest {
 		Assert.assertEquals(VersionCmd.class, CommandFactory.command(VersionCmd.NAME).getClass());
 		Assert.assertEquals(CleanCmd.class, CommandFactory.command(CleanCmd.NAME).getClass());
 		Assert.assertEquals(MappingCmd.class, CommandFactory.command(MappingCmd.NAME).getClass());
+		Assert.assertEquals(IndexCmd.class, CommandFactory.command(IndexCmd.NAME).getClass());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

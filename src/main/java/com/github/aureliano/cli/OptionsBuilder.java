@@ -6,6 +6,7 @@ import org.apache.commons.cli.Options;
 
 import com.github.aureliano.cli.commands.CleanCmd;
 import com.github.aureliano.cli.commands.HelpCmd;
+import com.github.aureliano.cli.commands.IndexCmd;
 import com.github.aureliano.cli.commands.MappingCmd;
 import com.github.aureliano.cli.commands.VersionCmd;
 
@@ -35,9 +36,22 @@ public final class OptionsBuilder {
 		opt.addOption(buildHelpOption());
 		opt.addOption(buildVersionOption());
 		opt.addOption(buildCleanOption());
+		opt.addOption(buildIndexOption());
 		opt.addOption(buildMappingOption());
 		
 		return opt;
+	}
+	
+	@SuppressWarnings("static-access")
+	private static final Option buildIndexOption() {
+		return OptionBuilder
+			.hasArgs(2)
+			.withValueSeparator(' ')
+			.isRequired(false)
+			.withLongOpt(IndexCmd.NAME)
+			.withDescription(IndexCmd.DESCRIPTION)
+			.withArgName("action> <index-name")
+			.create('i');
 	}
 	
 	@SuppressWarnings("static-access")

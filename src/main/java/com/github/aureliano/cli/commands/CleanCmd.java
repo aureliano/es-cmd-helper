@@ -14,7 +14,7 @@ public class CleanCmd implements ICommand {
 	public static final String NAME = "clean";
 	public static final String DESCRIPTION = "Delete all files created 10 days ago";
 	
-	private static final Logger LOGGER = Logger.getLogger(CleanCmd.class);
+	private static final Logger logger = Logger.getLogger(CleanCmd.class);
 	
 	public CleanCmd() {
 		super();
@@ -30,13 +30,13 @@ public class CleanCmd implements ICommand {
 
 	private void cleanLogFolder(Date seed) {
 		File logDir = new File("log");
-		LOGGER.info("Deleting files created 10 days ago from " + logDir.getAbsolutePath());
+		logger.info("Deleting files created 10 days ago from " + logDir.getAbsolutePath());
 		this.deleteFiles(seed, logDir, this.getLogFilenameFilter());
 	}
 
 	private void cleanTmpFolder(Date seed) {
 		File tmpDir = new File("tmp");
-		LOGGER.info("Deleting files created 10 days ago from " + tmpDir.getAbsolutePath());
+		logger.info("Deleting files created 10 days ago from " + tmpDir.getAbsolutePath());
 		this.deleteFiles(seed, tmpDir, this.getTmpFilenameFilter());
 	}
 	
@@ -56,7 +56,7 @@ public class CleanCmd implements ICommand {
 			}
 		}
 		
-		LOGGER.info("Files deleted: " + count);
+		logger.info("Files deleted: " + count);
 	}
 	
 	private Date getDateSeed() {
