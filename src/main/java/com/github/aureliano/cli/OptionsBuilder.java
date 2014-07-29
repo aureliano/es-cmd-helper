@@ -6,6 +6,7 @@ import org.apache.commons.cli.Options;
 
 import com.github.aureliano.cli.commands.CleanCmd;
 import com.github.aureliano.cli.commands.HelpCmd;
+import com.github.aureliano.cli.commands.MappingCmd;
 import com.github.aureliano.cli.commands.VersionCmd;
 
 
@@ -34,8 +35,21 @@ public final class OptionsBuilder {
 		opt.addOption(buildHelpOption());
 		opt.addOption(buildVersionOption());
 		opt.addOption(buildCleanOption());
+		opt.addOption(buildMappingOption());
 		
 		return opt;
+	}
+	
+	@SuppressWarnings("static-access")
+	private static final Option buildMappingOption() {
+		return OptionBuilder
+			.hasArgs(2)
+			.withValueSeparator(' ')
+			.isRequired(false)
+			.withLongOpt(MappingCmd.NAME)
+			.withDescription(MappingCmd.DESCRIPTION)
+			.withArgName("action> <mapping-bean")
+			.create('m');
 	}
 	
 	@SuppressWarnings("static-access")

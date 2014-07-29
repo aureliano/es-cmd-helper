@@ -13,6 +13,8 @@ public final class CommandFactory {
 			return new VersionCmd();
 		} else if (CleanCmd.NAME.equals(name)) {
 			return new CleanCmd();
+		} else if (MappingCmd.NAME.equals(name)) {
+			return new MappingCmd();
 		} else {
 			throw new IllegalArgumentException("There is no such command '" + name + "'");
 		}

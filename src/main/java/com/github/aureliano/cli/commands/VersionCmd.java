@@ -1,5 +1,7 @@
 package com.github.aureliano.cli.commands;
 
+import org.apache.commons.cli.Option;
+
 import com.github.aureliano.Metadata;
 
 public class VersionCmd implements ICommand {
@@ -12,7 +14,7 @@ public class VersionCmd implements ICommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Option option) {
 		Metadata metadata = Metadata.getInstance();
 		StringBuilder s = new StringBuilder()
 			.append(metadata.getAppName())

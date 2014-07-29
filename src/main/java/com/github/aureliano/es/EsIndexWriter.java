@@ -2,21 +2,24 @@ package com.github.aureliano.es;
 
 import java.lang.annotation.Annotation;
 
+import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingResponse;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.node.NodeBuilder;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
+import com.github.aureliano.ElasticSearchConfig;
+import com.github.aureliano.annotation.ESIndex;
 import com.github.kzwang.osem.annotations.Indexable;
 import com.github.kzwang.osem.api.ElasticSearchIndexer;
 import com.github.kzwang.osem.impl.ElasticSearchIndexerImpl;
 
 public class EsIndexWriter {
 
-	private Client client;
 	private static EsIndexWriter instance;
 	
 	private EsIndexWriter() {
 		super();
-		this.client = NodeBuilder.nodeBuilder().build().client();
 	}
 	
 	public static EsIndexWriter getInstance() {
@@ -27,15 +30,37 @@ public class EsIndexWriter {
 		return instance;
 	}
 	
-	public void mapIndex(Class<?> indexClass) {
-		Annotation indexable = indexClass.getAnnotation(Indexable.class);
-		if (indexable == null) {
-			throw new RuntimeException(indexClass.getCanonicalName() + " is not an indexable class");
+	public PutMappingResponse putMapping(Class<?> indexClass) {
+		return this.getElasticSearchIndexer(indexClass).createMapping(indexClass);
+	}
+	
+	public String getMapping(Class<?> indexClass) {
+		return this.getElasticSearchIndexer(indexClass).getMapping(indexClass);
+	}
+	
+	public DeleteMappingResponse deleteMapping(Class<?> indexClass) {
+		return this.getElasticSearchIndexer(indexClass).deleteMapping(indexClass);
+	}
+	
+	private ElasticSearchIndexer getElasticSearchIndexer(Class<?> indexClass) {
+		this.validateIndexClass(indexClass);
+		
+		String indexName = indexClass.getAnnotation(ESIndex.class).name();
+		ElasticSearchConfig esConfig = ElasticSearchConfig.getInstance();
+		Client client = new TransportClient().addTransportAddress(
+				new InetSocketTransportAddress(esConfig.getElasticSearchHost(), esConfig.getTransportClientPort()));
+		
+		return new ElasticSearchIndexerImpl(client, indexName);
+	}
+	
+	private void validateIndexClass(Class<?> indexClass) {
+		if (indexClass.getAnnotation(Indexable.class) == null) {
+			throw new IllegalArgumentException(indexClass.getCanonicalName() + " is not an indexable class");
 		}
 		
-		String indexName = ((Indexable) indexable).name();
-		ElasticSearchIndexer indexer = new ElasticSearchIndexerImpl(this.client, indexName);
-		
-		indexer.putMapping(indexClass, indexName);
+		if (indexClass.getAnnotation(ESIndex.class) == null) {
+			throw new IllegalArgumentException(indexClass.getCanonicalName() +
+					" does not contain annotation " + ESIndex.class.getName());
+		}
 	}
 }

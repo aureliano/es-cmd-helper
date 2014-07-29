@@ -1,6 +1,7 @@
 package com.github.aureliano.cli.commands;
 
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
 
 import com.github.aureliano.Metadata;
 import com.github.aureliano.cli.OptionsBuilder;
@@ -15,7 +16,7 @@ public class HelpCmd implements ICommand {
 	}
 	
 	@Override
-	public void execute() {
+	public void execute(Option option) {
 		Metadata metadata = Metadata.getInstance();
 		String header = "";
 		String footer = new StringBuilder("\n\nProject Home  - ")
@@ -28,11 +29,8 @@ public class HelpCmd implements ICommand {
 			.append(metadata.getJavadoc())
 			.toString();
 		
-		new HelpFormatter().printHelp(
-			metadata.getAppName(),
-			header,
-			OptionsBuilder.buildDefaultOptions(),
-			footer
-		);
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.setWidth(150);
+		formatter.printHelp(metadata.getAppName(), header, OptionsBuilder.buildDefaultOptions(), footer);
 	}
 }

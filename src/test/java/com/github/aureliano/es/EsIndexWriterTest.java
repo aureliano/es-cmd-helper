@@ -12,4 +12,49 @@ public class EsIndexWriterTest {
 		Assert.assertEquals(writer, EsIndexWriter.getInstance());
 		Assert.assertTrue(writer == EsIndexWriter.getInstance());
 	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testMapIndexNullClass() {
+		EsIndexWriter.getInstance().putMapping(null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testMapIndexNonIndexableClass() {
+		try {
+			EsIndexWriter.getInstance().putMapping(Object.class);
+		} catch (RuntimeException ex) {
+			Assert.assertEquals(Object.class.getCanonicalName() + " is not an indexable class", ex.getMessage());
+			throw ex;
+		}
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testGetIndexNullClass() {
+		EsIndexWriter.getInstance().getMapping(null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetIndexNonIndexableClass() {
+		try {
+			EsIndexWriter.getInstance().getMapping(Object.class);
+		} catch (RuntimeException ex) {
+			Assert.assertEquals(Object.class.getCanonicalName() + " is not an indexable class", ex.getMessage());
+			throw ex;
+		}
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testDeleteIndexNullClass() {
+		EsIndexWriter.getInstance().deleteMapping(null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteIndexNonIndexableClass() {
+		try {
+			EsIndexWriter.getInstance().deleteMapping(Object.class);
+		} catch (RuntimeException ex) {
+			Assert.assertEquals(Object.class.getCanonicalName() + " is not an indexable class", ex.getMessage());
+			throw ex;
+		}
+	}
 }

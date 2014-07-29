@@ -16,6 +16,8 @@ public class AppCli {
 			CommandExecutor.executeCommand(parser.parse(OptionsBuilder.buildDefaultOptions(), args));
 		} catch (ParseException ex) {
 			System.err.println(" !-- Parsing command line parameters has failed. Reason: " + ex.getMessage());
+		} catch (Exception ex) {
+			System.err.println(" !-- An error has ocurred while running. Reason: " + ex.getMessage());
 		}
 	}
 }

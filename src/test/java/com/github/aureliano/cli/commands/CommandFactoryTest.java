@@ -15,6 +15,7 @@ public class CommandFactoryTest {
 		Assert.assertEquals(HelpCmd.class, CommandFactory.command(HelpCmd.NAME).getClass());
 		Assert.assertEquals(VersionCmd.class, CommandFactory.command(VersionCmd.NAME).getClass());
 		Assert.assertEquals(CleanCmd.class, CommandFactory.command(CleanCmd.NAME).getClass());
+		Assert.assertEquals(MappingCmd.class, CommandFactory.command(MappingCmd.NAME).getClass());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

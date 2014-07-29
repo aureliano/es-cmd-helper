@@ -10,7 +10,7 @@ public class CommandExecutor {
 
 	public static void executeCommand(CommandLine cli) {
 		for (Option option : cli.getOptions()) {
-			CommandFactory.command(option.getLongOpt()).execute();
+			CommandFactory.command(option.getLongOpt()).execute(option);
 		}
 	}
 }
