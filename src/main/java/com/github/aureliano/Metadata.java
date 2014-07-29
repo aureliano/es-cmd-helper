@@ -29,7 +29,7 @@ public class Metadata {
 		return instance;
 	}
 	
-	private void reset() {
+	protected void reset() {
 		Properties p = new Properties();
 		InputStream stream = ClassLoader.getSystemResourceAsStream("com/github/aureliano/metadata.properties");
 		
@@ -114,5 +114,72 @@ public class Metadata {
 
 	public void setJavadoc(String javadoc) {
 		this.javadoc = javadoc;
-	}	
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((appName == null) ? 0 : appName.hashCode());
+		result = prime * result + ((documentation == null) ? 0 : documentation.hashCode());
+		result = prime * result + ((javaVersion == null) ? 0 : javaVersion.hashCode());
+		result = prime * result + ((javadoc == null) ? 0 : javadoc.hashCode());
+		result = prime * result + ((projectHome == null) ? 0 : projectHome.hashCode());
+		result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
+		result = prime * result + ((releaseVersion == null) ? 0 : releaseVersion.hashCode());
+		result = prime * result + ((scmHome == null) ? 0 : scmHome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Metadata other = (Metadata) obj;
+		if (appName == null) {
+			if (other.appName != null)
+				return false;
+		} else if (!appName.equals(other.appName))
+			return false;
+		if (documentation == null) {
+			if (other.documentation != null)
+				return false;
+		} else if (!documentation.equals(other.documentation))
+			return false;
+		if (javaVersion == null) {
+			if (other.javaVersion != null)
+				return false;
+		} else if (!javaVersion.equals(other.javaVersion))
+			return false;
+		if (javadoc == null) {
+			if (other.javadoc != null)
+				return false;
+		} else if (!javadoc.equals(other.javadoc))
+			return false;
+		if (projectHome == null) {
+			if (other.projectHome != null)
+				return false;
+		} else if (!projectHome.equals(other.projectHome))
+			return false;
+		if (releaseDate == null) {
+			if (other.releaseDate != null)
+				return false;
+		} else if (!releaseDate.equals(other.releaseDate))
+			return false;
+		if (releaseVersion == null) {
+			if (other.releaseVersion != null)
+				return false;
+		} else if (!releaseVersion.equals(other.releaseVersion))
+			return false;
+		if (scmHome == null) {
+			if (other.scmHome != null)
+				return false;
+		} else if (!scmHome.equals(other.scmHome))
+			return false;
+		return true;
+	}
 }

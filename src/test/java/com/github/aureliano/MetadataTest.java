@@ -2,10 +2,30 @@ package com.github.aureliano;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class MetadataTest {
+	
+	@Before
+	public void beforeTest() {
+		Metadata.getInstance().reset();
+	}
 
+	@Test
+	public void testGetInstance() {
+		Metadata metadata = Metadata.getInstance();
+		Assert.assertNotNull(metadata);
+		Assert.assertEquals(metadata, Metadata.getInstance());
+		Assert.assertTrue(metadata == Metadata.getInstance());
+		
+		metadata.setAppName("test");
+		Assert.assertEquals(metadata, Metadata.getInstance());
+		
+		metadata.setDocumentation("/path/to/documentation");
+		Assert.assertEquals(metadata, Metadata.getInstance());
+	}
+	
 	@Test
 	public void testMetadata() {
 		Metadata m = Metadata.getInstance();
