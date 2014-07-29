@@ -6,10 +6,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+
 public class CleanCmd implements ICommand {
 
 	public static final String NAME = "clean";
 	public static final String DESCRIPTION = "Delete all files created 10 days ago";
+	
+	private Logger logger = Logger.getLogger(CleanCmd.class);
 	
 	public CleanCmd() {
 		super();
@@ -25,13 +29,13 @@ public class CleanCmd implements ICommand {
 
 	private void cleanLogFolder(Date seed) {
 		File logDir = new File("log");
-		System.out.println("Deleting files created 10 days ago from " + logDir.getAbsolutePath());
+		this.logger.info("Deleting files created 10 days ago from " + logDir.getAbsolutePath());
 		this.deleteFiles(seed, logDir, this.getLogFilenameFilter());
 	}
 
 	private void cleanTmpFolder(Date seed) {
 		File tmpDir = new File("tmp");
-		System.out.println("Deleting files created 10 days ago from " + tmpDir.getAbsolutePath());
+		this.logger.info("Deleting files created 10 days ago from " + tmpDir.getAbsolutePath());
 		this.deleteFiles(seed, tmpDir, this.getTmpFilenameFilter());
 	}
 	
@@ -51,7 +55,7 @@ public class CleanCmd implements ICommand {
 			}
 		}
 		
-		System.out.println("Files deleted: " + count);
+		this.logger.info("Files deleted: " + count);
 	}
 	
 	private Date getDateSeed() {
