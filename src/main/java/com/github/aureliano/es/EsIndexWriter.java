@@ -1,7 +1,5 @@
 package com.github.aureliano.es;
 
-import java.lang.annotation.Annotation;
-
 import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.client.Client;
@@ -30,7 +28,11 @@ public class EsIndexWriter {
 		return instance;
 	}
 	
-	public PutMappingResponse putMapping(Class<?> indexClass) {
+	public boolean indexExist(Class<?> indexClass) {
+		return this.getElasticSearchIndexer(indexClass).indexExist();
+	}
+	
+	public PutMappingResponse createMapping(Class<?> indexClass) {
 		return this.getElasticSearchIndexer(indexClass).createMapping(indexClass);
 	}
 	

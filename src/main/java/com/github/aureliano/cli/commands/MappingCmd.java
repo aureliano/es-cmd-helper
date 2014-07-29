@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 
+import com.github.aureliano.annotation.ESIndex;
 import com.github.aureliano.es.EsIndexWriter;
 
 public class MappingCmd implements ICommand {
@@ -47,7 +48,18 @@ public class MappingCmd implements ICommand {
 	}
 
 	private void executeCreateMapping() {
-		PutMappingResponse response = EsIndexWriter.getInstance().putMapping(this.getMappingBeanClass());
+		Class<?> beanClass = this.getMappingBeanClass();
+		EsIndexWriter indexWriter = EsIndexWriter.getInstance();
+		
+		if (!indexWriter.indexExist(beanClass)) {
+			ESIndex annotation = beanClass.getAnnotation(ESIndex.class);
+			String message = "Index %s does not exist. You must create it before you create a type.";
+			message = message.replaceFirst("%s", (annotation == null ? "" : annotation.name()));
+			
+			throw new RuntimeException(message);
+		}
+		
+		PutMappingResponse response = EsIndexWriter.getInstance().createMapping(beanClass);
 		System.out.println("acknowledged:" + response.isAcknowledged());
 	}
 

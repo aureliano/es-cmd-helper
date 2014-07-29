@@ -15,13 +15,13 @@ public class EsIndexWriterTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void testMapIndexNullClass() {
-		EsIndexWriter.getInstance().putMapping(null);
+		EsIndexWriter.getInstance().createMapping(null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testMapIndexNonIndexableClass() {
 		try {
-			EsIndexWriter.getInstance().putMapping(Object.class);
+			EsIndexWriter.getInstance().createMapping(Object.class);
 		} catch (RuntimeException ex) {
 			Assert.assertEquals(Object.class.getCanonicalName() + " is not an indexable class", ex.getMessage());
 			throw ex;
