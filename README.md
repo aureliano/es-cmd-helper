@@ -2,10 +2,10 @@ ElasticSearch Command Helper
 =======
 
 ### Overview
-ElasticSearch Command Helper is an API which make easier to interact with some ElasticSearch features. It uses annotated Java classes to map index types in ElasticSearch. This project is based on two Java APIs. The first one is [ElasticSearch Java API](http://www.elasticsearch.org/guide/en/elasticsearch/client/java-api/). And the second one is [ElasticSearch OSEM](https://github.com/kzwang/elasticsearch-osem) which is used as an object search engine mapping for ElasticSearch.
+ElasticSearch Command Helper is an API that aims to facilitate integration with ElasticSearch. It uses annotated Java classes to map index types. This project is based on  [ElasticSearch Java API](http://www.elasticsearch.org/guide/en/elasticsearch/client/java-api/) and [ElasticSearch OSEM](https://github.com/kzwang/elasticsearch-osem) (ElasticSearch object search engine mapping).
 
 ### Stand alone application
-If you are interested just in pontual commands like create or delete indices, create, read or delete mapping you can just download binary file. It's required you have Java 1.6 or higher installed. Download binary file on [application](http://1drv.ms/1n3tgxR) and extract files. Type `java -jar es-cmd-helper.jar -h` and if everything is ok you'll see a help banner on console.
+If you are only interested in creating or deleting indexes and mappings, just download the [binary distribution](http://1drv.ms/1n3tgxR) (Java 1.6 required),  extract the jars and type 'java -jar es-cmd-helper.jar -h' for help.
 
 ### Documentation
 Visit the wiki page in order to get access to documentation. https://github.com/aureliano/es-cmd-helper/wiki
