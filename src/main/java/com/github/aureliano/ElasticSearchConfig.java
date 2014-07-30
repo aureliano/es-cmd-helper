@@ -1,5 +1,8 @@
 package com.github.aureliano;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -17,6 +20,8 @@ public class ElasticSearchConfig {
 
 	private static ElasticSearchConfig instance;
 	private static final Logger logger = Logger.getLogger(ElasticSearchConfig.class);
+	
+	public static final String ELASTIC_SEARCH_PROPERTIES_FILE = "elasticsearch.properties";
 	
 	private ElasticSearchConfig() {
 		this.reset();
@@ -37,20 +42,17 @@ public class ElasticSearchConfig {
 	
 	protected void reset() {
 		Properties p = new Properties();
-		String configFile = "elasticsearch.properties";
-		InputStream stream = ClassLoader.getSystemResourceAsStream(configFile);
-		
-		if (stream == null) {
-			throw new RuntimeException("Could not find ElasticSearch configuration file ./" + configFile);
-		}
 		
 		try {
+			InputStream stream = new FileInputStream(ELASTIC_SEARCH_PROPERTIES_FILE);
 			p.load(stream);
 			this.fillData(p);
-		} catch (Exception ex) {
+		} catch (FileNotFoundException ex) {
+			throw new RuntimeException("Could not find ElasticSearch configuration file ./" + ELASTIC_SEARCH_PROPERTIES_FILE);
+		} catch (IOException ex) {
 			logger.error(ex.getMessage(), ex);
 			throw new RuntimeException("Fail to load ElasticSearch configuration.", ex);
-		}		
+		}
 	}
 	
 	private void fillData(Properties p) {
