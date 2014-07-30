@@ -82,7 +82,7 @@ public class ElasticSearchConfig {
 	/**
 	 * Set transport client port to be set on {@link org.elasticsearch.common.transport.InetSocketTransportAddress}.
 	 * 
-	 * @param The port number <port>.
+	 * @param port - The port number.
 	 */
 	public void setTransportClientPort(int port) {
 		this.transportClientPort = port;

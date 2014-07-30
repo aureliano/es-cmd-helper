@@ -21,7 +21,7 @@ public class VersionCmd implements ICommand {
 	/**
 	 * Execute version command.
 	 * 
-	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 * @param option - Command line option {@link org.apache.commons.cli.Option}
 	 */
 	@Override
 	public void execute(Option option) {

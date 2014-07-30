@@ -42,7 +42,7 @@ public class EsIndexWriter {
 	/**
 	 * Verify if an index exist.
 	 * 
-	 * @param Mapping-type class <indexClass>
+	 * @param indexClass - Mapping-type class
 	 * @return If the index exist or not <boolean>
 	 */
 	public boolean indexExist(Class<?> indexClass) {
@@ -52,7 +52,7 @@ public class EsIndexWriter {
 	/**
 	 * Verify if an index exist.
 	 * 
-	 * @param Index name <indexName>.
+	 * @param indexName - Index name
 	 * @return If the index exist or not <boolean>
 	 */
 	public boolean indexExist(String indexName) {
@@ -62,7 +62,7 @@ public class EsIndexWriter {
 	/**
 	 * Create an index.
 	 * 
-	 * @param The index name <indexName>
+	 * @param indexName - The index name
 	 * @return The response {@link org.elasticsearch.action.admin.indices.create.CreateIndexResponse}
 	 */
 	public CreateIndexResponse createIndex(String indexName) {
@@ -72,7 +72,7 @@ public class EsIndexWriter {
 	/**
 	 * Delete an index.
 	 * 
-	 * @param The index name <indexName>
+	 * @param indexName - The index name
 	 * @return The response {@link org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse}
 	 */
 	public DeleteIndexResponse deleteIndex(String indexName) {
@@ -83,7 +83,7 @@ public class EsIndexWriter {
 	 * Put a mapping type on index. That means whether type does not exist
 	 * it will create one another way it'll replace (update) it.
 	 * 
-	 * @param Mapping-type class <indexClass>
+	 * @param indexClass - Mapping-type class
 	 * @return The response {@link org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse}
 	 */
 	public PutMappingResponse createMapping(Class<?> indexClass) {
@@ -93,7 +93,7 @@ public class EsIndexWriter {
 	/**
 	 * Retrieve index type mapping.
 	 * 
-	 * @param Mapping-type class <indexClass>
+	 * @param indexClass - Mapping-type class
 	 * @return JSON mapping as text
 	 */
 	public String getMapping(Class<?> indexClass) {
@@ -103,7 +103,7 @@ public class EsIndexWriter {
 	/**
 	 * Delete a mapping type from index.
 	 * 
-	 * @param Mapping-type class <indexClass>
+	 * @param indexClass - Mapping-type class
 	 * @return The response {@link org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingResponse}
 	 */
 	public DeleteMappingResponse deleteMapping(Class<?> indexClass) {

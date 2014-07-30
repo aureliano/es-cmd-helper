@@ -13,7 +13,7 @@ public final class CommandFactory {
 	 * Get a command executor by its name. Each command executor
 	 * must have a public class attribute NAME.
 	 *  
-	 * @param The command executor name (Command.NAME) <name>
+	 * @param name - The command executor name (Command.NAME)
 	 * @return An executor {@link com.github.aureliano.cli.commands.ICommand}
 	 */
 	public static ICommand command(String name) {

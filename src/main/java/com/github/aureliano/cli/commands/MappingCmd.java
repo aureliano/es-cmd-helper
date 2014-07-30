@@ -39,7 +39,7 @@ public class MappingCmd implements ICommand {
 	/**
 	 * Execute mapping command.
 	 * 
-	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 * @param option - Command line option {@link org.apache.commons.cli.Option}
 	 */
 	@Override
 	public void execute(Option option) {

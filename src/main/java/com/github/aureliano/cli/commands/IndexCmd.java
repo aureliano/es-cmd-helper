@@ -38,7 +38,7 @@ public class IndexCmd implements ICommand {
 	/**
 	 * Execute index command.
 	 * 
-	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 * @param option - Command line option {@link org.apache.commons.cli.Option}
 	 */
 	@Override
 	public void execute(Option option) {

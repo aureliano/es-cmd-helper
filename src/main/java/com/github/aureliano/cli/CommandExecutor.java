@@ -15,7 +15,7 @@ public class CommandExecutor {
 	 * Receive a command line object {@link org.apache.commons.cli.CommandLine}
 	 * in order to be translated and executed.
 	 * 
-	 * @param Command line object <cli>
+	 * @param cli - Command line object
 	 */
 	public static void executeCommand(CommandLine cli) {
 		for (Option option : cli.getOptions()) {
