@@ -11,10 +11,10 @@ If you are interested just in pontual commands like create or delete indexes, cr
 Visit the wiki page in order to get access to documentation. https://github.com/aureliano/es-cmd-helper/wiki
 
 ### Installation
-#### By Source
+#### Source
 Clone this repository with GIT `git clone https://github.com/aureliano/es-cmd-helper.git` or download source code from release `https://github.com/aureliano/es-cmd-helper/releases/tag/x.x.x`. Extract files and go to project directory. Install locally with Maven by typing `mvn install`.
 
-### Maven
+#### Binary - Maven
 This API is not available at Maven Central Repository yet. Although you can install it manually by copying the artifacts es-cmd-helper-x.x.x.jar es-cmd-helper-x.x.x-sources.jar to `$HOME/.m2/repository/com/github/aureliano/es-cmd-helper/x.x.x/`. So in your POM you have just to add this dependency tag.
 ```xml
 <dependency>
