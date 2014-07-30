@@ -7,7 +7,11 @@ import org.apache.commons.cli.ParseException;
 import com.github.aureliano.cli.CommandExecutor;
 import com.github.aureliano.cli.OptionsBuilder;
 
-
+/**
+ * This class can be used to encapsulate command line execution.
+ * Gets command line arguments as parameters, parse them and execute
+ * commands after.
+ */
 public class AppCli {
 	
 	public void executeCommandLine(String[] args) {

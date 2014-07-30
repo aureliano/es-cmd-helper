@@ -9,6 +9,16 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 
 import com.github.aureliano.es.EsIndexWriter;
 
+/**
+ * Command line class executor. Execute actions on ElasticSearch
+ * in index scope. Actions that are covered by this are: exist, create and delete.
+ * 
+ * <ul>
+ *   <li><b>exist</b> - Verify if an index exist.</li>
+ *   <li><b>create</b> - Create an index.</li>
+ *   <li><b>delete</b> - Delete an index.</li>
+ * </ul>
+ */
 public class IndexCmd implements ICommand {
 
 	private static final Logger logger = Logger.getLogger(MappingCmd.class);
@@ -25,6 +35,11 @@ public class IndexCmd implements ICommand {
 		super();
 	}
 	
+	/**
+	 * Execute index command.
+	 * 
+	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 */
 	@Override
 	public void execute(Option option) {
 		logger.info("Execute Index command");

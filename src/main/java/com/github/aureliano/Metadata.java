@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Project metadata class model. This one is necessary to keep useful metadata
+ * through execution. Its configuration is done by loading data from a properties file. It looks
+ * for a file named <i>com/github/aureliano/metadata.properties</i>.
+ */
 public class Metadata {
 
 	private String appName;
@@ -21,6 +26,11 @@ public class Metadata {
 		this.reset();
 	}
 	
+	/**
+	 * Single method. It ensures there's just one instance of this object.
+	 * 
+	 * @return The Metadata singleton.
+	 */
 	public static Metadata getInstance() {
 		if (instance == null) {
 			instance = new Metadata();

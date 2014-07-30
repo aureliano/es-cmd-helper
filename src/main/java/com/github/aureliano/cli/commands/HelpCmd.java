@@ -1,5 +1,9 @@
 package com.github.aureliano.cli.commands;
 
+/**
+ * Command line class executor. Print to standard output
+ * a formatted help of this API. 
+ */
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 
@@ -14,7 +18,12 @@ public class HelpCmd implements ICommand {
 	public HelpCmd() {
 		super();
 	}
-	
+
+	/**
+	 * Execute help command.
+	 * 
+	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 */
 	@Override
 	public void execute(Option option) {
 		Metadata metadata = Metadata.getInstance();

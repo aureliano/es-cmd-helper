@@ -10,6 +10,16 @@ import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import com.github.aureliano.annotation.ESIndex;
 import com.github.aureliano.es.EsIndexWriter;
 
+/**
+ * Command line class executor. Execute actions on ElasticSearch
+ * in mapping scope. Actions that are covered by this are: create, get and delete. 
+ * 
+ * <ul>
+ *   <li><b>create</b> - Create an index type.</li>
+ *   <li><b>get</b> - Retrieve an index type mapping.</li>
+ *   <li><b>delete</b> - Delete an index type.</li>
+ * </ul>
+ */
 public class MappingCmd implements ICommand {
 
 	private static final Logger logger = Logger.getLogger(MappingCmd.class);
@@ -26,6 +36,11 @@ public class MappingCmd implements ICommand {
 		super();
 	}
 	
+	/**
+	 * Execute mapping command.
+	 * 
+	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 */
 	@Override
 	public void execute(Option option) {
 		logger.info("Execute Mapping command");

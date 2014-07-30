@@ -10,7 +10,10 @@ import com.github.aureliano.cli.commands.IndexCmd;
 import com.github.aureliano.cli.commands.MappingCmd;
 import com.github.aureliano.cli.commands.VersionCmd;
 
-
+/**
+ * Command line options builder. This class is intended to create
+ * options which will be shown on console/terminal.
+ */
 public final class OptionsBuilder {
 
 	private static Options options;
@@ -20,8 +23,16 @@ public final class OptionsBuilder {
 	}
 	
 	/**
-	 * clean, help, version, indexes, put-map, get-map, collect-logs
-	 * @return
+	 * Build default application options.
+	 * <ul>
+	 *   <li>index</li>
+	 *   <li>mapping</li>
+	 *   <li>clean</li>
+	 *   <li>version</li>
+	 *   <li>help</li>
+	 * </ul>
+	 * 
+	 * @return default options {@link org.apache.commons.cli.Options}
 	 */
 	public static final Options buildDefaultOptions() {
 		if (options == null) {

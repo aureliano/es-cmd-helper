@@ -4,6 +4,11 @@ import org.apache.commons.cli.Option;
 
 import com.github.aureliano.Metadata;
 
+/**
+ * Command line class executor. Print to standard output
+ * a data about this API like: API name, API release version,
+ * API release date and which Java version was used to compile it. 
+ */
 public class VersionCmd implements ICommand {
 
 	public static final String NAME = "version";
@@ -13,6 +18,11 @@ public class VersionCmd implements ICommand {
 		super();
 	}
 
+	/**
+	 * Execute version command.
+	 * 
+	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 */
 	@Override
 	public void execute(Option option) {
 		Metadata metadata = Metadata.getInstance();

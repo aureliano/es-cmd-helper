@@ -9,6 +9,11 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.cli.Option;
 import org.apache.log4j.Logger;
 
+/**
+ * Command line class executor. Delete old files from log and tmp
+ * folders. Old files are supposed to be those which were created at
+ * least 10 days ago. 
+ */
 public class CleanCmd implements ICommand {
 
 	public static final String NAME = "clean";
@@ -20,6 +25,11 @@ public class CleanCmd implements ICommand {
 		super();
 	}
 	
+	/**
+	 * Execute clean command.
+	 * 
+	 * @param Command line option <option> {@link org.apache.commons.cli.Option}
+	 */
 	@Override
 	public void execute(Option option) {
 		Date seed = this.getDateSeed();
