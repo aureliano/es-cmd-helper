@@ -7,6 +7,25 @@
 	<version>0.1.0</version>
 	<name>ElasticSearch command helper</name>
 	<url>https://github.com/aureliano/es-cmd-helper/wiki</url>
+	
+	<scm>
+		<url>https://github.com/aureliano/es-cmd-helper</url>
+	</scm>
+	
+	<developers>
+		<developer>
+			<id>aureliano</id>
+			<name>Aureliano</name>
+			<url>https://github.com/aureliano</url>
+		</developer>
+	</developers>
+	
+	<licenses>
+		<license>
+			<name>The MIT License (MIT)</name>
+			<url>https://github.com/aureliano/es-cmd-helper/blob/master/LICENSE</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
