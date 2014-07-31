@@ -8,9 +8,11 @@ ElasticSearch Command Helper is an API that aims to facilitate integration with 
 Visit the wiki page in order to get access to documentation. https://github.com/aureliano/es-cmd-helper/wiki
 
 ### Installation
+Unfortunatelly this API is not available at Maven Central Repository yet. So at this point you have to install it manually.
+
 Clone this repository with GIT `git clone https://github.com/aureliano/es-cmd-helper.git` or download source code from release `https://github.com/aureliano/es-cmd-helper/releases/tag/x.x.x`, or even getting the edge source from `https://github.com/aureliano/es-cmd-helper/archive/master.zip`. Extract files and go to project directory. Install locally with Maven by typing `mvn install`.
 
-Unfortunatelly this API is not available at Maven Central Repository yet. So at this point you have to install it manually. After installation from source code all you have to do is add this dependency tag.
+After installation from source code all you have to do is add this dependency tag.
 ```xml
 <dependency>
   <groupId>com.github.aureliano</groupId>
