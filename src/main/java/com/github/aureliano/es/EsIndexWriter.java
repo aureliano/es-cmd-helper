@@ -21,6 +21,7 @@ import com.github.kzwang.osem.impl.ElasticSearchIndexerImpl;
 public class EsIndexWriter {
 
 	private static EsIndexWriter instance;
+	private Client client;
 	
 	private EsIndexWriter() {
 		super();
@@ -37,6 +38,14 @@ public class EsIndexWriter {
 		}
 		
 		return instance;
+	}
+	
+	public void startElasticSearchClient() {
+		this.client = this.configureNewClient();
+	}
+	
+	public void shutdownElasticSearchClient() {
+		this.client.close();
 	}
 	
 	/**
@@ -118,11 +127,13 @@ public class EsIndexWriter {
 	}
 	
 	private ElasticSearchIndexer getElasticSearchIndexer(String indexName) {
+		return new ElasticSearchIndexerImpl(this.client, indexName);
+	}
+	
+	private Client configureNewClient() {
 		ElasticSearchConfig esConfig = ElasticSearchConfig.getInstance();
-		Client client = new TransportClient().addTransportAddress(
+		return new TransportClient().addTransportAddress(
 				new InetSocketTransportAddress(esConfig.getElasticSearchHost(), esConfig.getTransportClientPort()));
-		
-		return new ElasticSearchIndexerImpl(client, indexName);
 	}
 	
 	private void validateIndexClass(Class<?> indexClass) {

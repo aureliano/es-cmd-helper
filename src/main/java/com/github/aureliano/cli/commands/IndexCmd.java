@@ -42,11 +42,15 @@ public class IndexCmd implements ICommand {
 	 */
 	@Override
 	public void execute(Option option) {
+		EsIndexWriter indexWriter = EsIndexWriter.getInstance();
+		indexWriter.startElasticSearchClient();
+		
 		logger.info("Execute Index command");
 		this.loadParameters(option);
 		this.validateParamaters();
 		
 		this.executeAction();
+		indexWriter.shutdownElasticSearchClient();
 	}
 
 	private void executeAction() {

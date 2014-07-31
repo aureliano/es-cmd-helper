@@ -43,11 +43,15 @@ public class MappingCmd implements ICommand {
 	 */
 	@Override
 	public void execute(Option option) {
+		EsIndexWriter indexWriter = EsIndexWriter.getInstance();
+		indexWriter.startElasticSearchClient();
+		
 		logger.info("Execute Mapping command");
 		this.loadParameters(option);
 		this.validateParamaters();
 		
 		this.executeAction();
+		indexWriter.shutdownElasticSearchClient();
 	}
 	
 	private void executeAction() {
