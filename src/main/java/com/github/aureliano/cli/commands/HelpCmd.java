@@ -7,7 +7,6 @@ package com.github.aureliano.cli.commands;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 
-import com.github.aureliano.Metadata;
 import com.github.aureliano.cli.OptionsBuilder;
 
 public class HelpCmd implements ICommand {
@@ -21,25 +20,33 @@ public class HelpCmd implements ICommand {
 
 	/**
 	 * Execute help command.
+	 */
+	@Override
+	public void execute() {
+		this.execute(null);
+	}
+
+	/**
+	 * Execute help command.
 	 * 
 	 * @param option - Command line option {@link org.apache.commons.cli.Option}
 	 */
 	@Override
 	public void execute(Option option) {
-		Metadata metadata = Metadata.getInstance();
 		String header = "";
-		String footer = new StringBuilder("\n\nProject Home  - ")
-			.append(metadata.getProjectHome())
+		String footer = new StringBuilder("\n----------\nElasticSearch Command Helper")
+			.append("\nProject Home  - ")
+			.append("https://github.com/aureliano/es-cmd-helper")
 			.append("\nSource Code   - ")
-			.append(metadata.getScmHome())
+			.append("https://github.com/aureliano/es-cmd-helper")
 			.append("\nDocumentation - ")
-			.append(metadata.getDocumentation())
+			.append("https://github.com/aureliano/es-cmd-helper/wiki")
 			.append("\nJavaDoc       - ")
-			.append(metadata.getJavadoc())
+			.append("")
 			.toString();
 		
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.setWidth(150);
-		formatter.printHelp(metadata.getAppName(), header, OptionsBuilder.buildDefaultOptions(), footer);
+		formatter.printHelp("ElasticSearch Command Helpe", header, OptionsBuilder.buildDefaultOptions(), footer);
 	}
 }

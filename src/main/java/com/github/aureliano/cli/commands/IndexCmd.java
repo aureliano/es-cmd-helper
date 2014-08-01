@@ -4,10 +4,8 @@ import java.util.Arrays;
 
 import org.apache.commons.cli.Option;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 
-import com.github.aureliano.es.EsIndexWriter;
+import com.github.aureliano.es.ElasticSearchCommandHelper;
 
 /**
  * Command line class executor. Execute actions on ElasticSearch
@@ -37,20 +35,27 @@ public class IndexCmd implements ICommand {
 	
 	/**
 	 * Execute index command.
+	 */
+	@Override
+	public void execute() {
+		logger.info("Execute Index command");
+		this.validateParamaters();
+		
+		this.executeAction();
+	}
+	
+	/**
+	 * Execute index command.
 	 * 
 	 * @param option - Command line option {@link org.apache.commons.cli.Option}
 	 */
 	@Override
 	public void execute(Option option) {
-		EsIndexWriter indexWriter = EsIndexWriter.getInstance();
-		indexWriter.startElasticSearchClient();
-		
 		logger.info("Execute Index command");
 		this.loadParameters(option);
 		this.validateParamaters();
 		
 		this.executeAction();
-		indexWriter.shutdownElasticSearchClient();
 	}
 
 	private void executeAction() {
@@ -66,17 +71,17 @@ public class IndexCmd implements ICommand {
 	}
 
 	private void executeExistIndex() {
-		System.out.println("Index " + this.indexName + " exist? " + EsIndexWriter.getInstance().indexExist(this.indexName));
+		System.out.println("Index " + this.indexName + " exist? " + ElasticSearchCommandHelper.getInstance().indexExist(this.indexName));
 	}
 
 	private void executeCreateIndex() {
-		CreateIndexResponse response = EsIndexWriter.getInstance().createIndex(this.indexName);
-		System.out.println("acknowledged:" + response.isAcknowledged());
+		boolean acknowledged = ElasticSearchCommandHelper.getInstance().createIndex(this.indexName);
+		System.out.println("acknowledged:" + acknowledged);
 	}
 
 	private void executeDeleteIndex() {
-		DeleteIndexResponse response = EsIndexWriter.getInstance().deleteIndex(this.indexName);
-		System.out.println("acknowledged:" + response.isAcknowledged());
+		boolean acknowledged = ElasticSearchCommandHelper.getInstance().deleteIndex(this.indexName);
+		System.out.println("acknowledged:" + acknowledged);
 	}
 
 	private void loadParameters(Option option) {
@@ -100,15 +105,17 @@ public class IndexCmd implements ICommand {
 		return action;
 	}
 
-	public void setAction(String action) {
+	public IndexCmd withAction(String action) {
 		this.action = action;
+		return this;
 	}
 
 	public String getIndexName() {
 		return indexName;
 	}
 
-	public void setIndexName(String indexName) {
+	public IndexCmd withIndexName(String indexName) {
 		this.indexName = indexName;
+		return this;
 	}
 }

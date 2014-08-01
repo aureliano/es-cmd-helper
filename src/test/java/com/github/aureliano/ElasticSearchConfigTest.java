@@ -15,12 +15,14 @@ public class ElasticSearchConfigTest {
 	@Before
 	public void beforeTest() throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(ElasticSearchConfig.ELASTIC_SEARCH_PROPERTIES_FILE));
-		writer.write("elastic.search.host=127.0.0.1");
+		writer.write("elastic.search.host=localhost");
 		writer.newLine();
 		writer.write("transport.client.port=9637");
+		writer.newLine();
+		writer.write("automatic.client.close=false");
 		writer.flush();
 		
-		ElasticSearchConfig.getInstance().reset();
+		ElasticSearchConfig.loadConfigurationFromFile();
 	}
 	
 	@After
@@ -29,23 +31,29 @@ public class ElasticSearchConfigTest {
 	}
 	
 	@Test
-	public void testGetInstance() {
-		ElasticSearchConfig configuration = ElasticSearchConfig.getInstance();
-		Assert.assertNotNull(configuration);
-		Assert.assertEquals(configuration, ElasticSearchConfig.getInstance());
-		Assert.assertTrue(configuration == ElasticSearchConfig.getInstance());
-		
-		configuration.setElasticSearchHost("localhost");
-		Assert.assertEquals(configuration, ElasticSearchConfig.getInstance());
-		
-		configuration.setTransportClientPort(9200);
-		Assert.assertEquals(configuration, ElasticSearchConfig.getInstance());
+	public void testElasticSearchDefaultConfig() {
+		ElasticSearchConfig configuration = new ElasticSearchConfig();
+		Assert.assertEquals("127.0.0.1", configuration.getElasticSearchHost());
+		Assert.assertEquals(9300, configuration.getTransportClientPort());
+		Assert.assertTrue(configuration.isAutomaticClientClose());
 	}
 	
 	@Test
-	public void testElasticSearchConfig() {
-		ElasticSearchConfig configuration = ElasticSearchConfig.getInstance();
-		Assert.assertEquals("127.0.0.1", configuration.getElasticSearchHost());
+	public void testElasticSearchFileConfig() {
+		ElasticSearchConfig configuration = ElasticSearchConfig.loadConfigurationFromFile();
+		Assert.assertEquals("localhost", configuration.getElasticSearchHost());
 		Assert.assertEquals(9637, configuration.getTransportClientPort());
+		Assert.assertFalse(configuration.isAutomaticClientClose());
+	}
+	
+	@Test
+	public void testElasticSearchCodeConfig() {
+		ElasticSearchConfig configuration = new ElasticSearchConfig()
+			.withElasticSearchHost("124.5.6.112")
+			.withTransportClientPort(9970);
+		
+		Assert.assertEquals("124.5.6.112", configuration.getElasticSearchHost());
+		Assert.assertEquals(9970, configuration.getTransportClientPort());
+		Assert.assertTrue(configuration.isAutomaticClientClose());
 	}
 }

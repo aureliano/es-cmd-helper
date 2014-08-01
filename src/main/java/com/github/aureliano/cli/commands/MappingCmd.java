@@ -4,11 +4,9 @@ import java.util.Arrays;
 
 import org.apache.commons.cli.Option;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingResponse;
-import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 
 import com.github.aureliano.annotation.ESIndex;
-import com.github.aureliano.es.EsIndexWriter;
+import com.github.aureliano.es.ElasticSearchCommandHelper;
 
 /**
  * Command line class executor. Execute actions on ElasticSearch
@@ -38,20 +36,27 @@ public class MappingCmd implements ICommand {
 	
 	/**
 	 * Execute mapping command.
+	 */
+	@Override
+	public void execute() {
+		logger.info("Execute Mapping command");
+		this.validateParamaters();
+		
+		this.executeAction();
+	}
+	
+	/**
+	 * Execute mapping command.
 	 * 
 	 * @param option - Command line option {@link org.apache.commons.cli.Option}
 	 */
 	@Override
 	public void execute(Option option) {
-		EsIndexWriter indexWriter = EsIndexWriter.getInstance();
-		indexWriter.startElasticSearchClient();
-		
 		logger.info("Execute Mapping command");
 		this.loadParameters(option);
 		this.validateParamaters();
 		
 		this.executeAction();
-		indexWriter.shutdownElasticSearchClient();
 	}
 	
 	private void executeAction() {
@@ -68,9 +73,9 @@ public class MappingCmd implements ICommand {
 
 	private void executeCreateMapping() {
 		Class<?> beanClass = this.getMappingBeanClass();
-		EsIndexWriter indexWriter = EsIndexWriter.getInstance();
+		ElasticSearchCommandHelper indexHelper = ElasticSearchCommandHelper.getInstance();
 		
-		if (!indexWriter.indexExist(beanClass)) {
+		if (!indexHelper.indexExist(beanClass)) {
 			ESIndex annotation = beanClass.getAnnotation(ESIndex.class);
 			String message = "Index %s does not exist. You must create it before you create a type.";
 			message = message.replaceFirst("%s", (annotation == null ? "" : annotation.name()));
@@ -78,17 +83,17 @@ public class MappingCmd implements ICommand {
 			throw new RuntimeException(message);
 		}
 		
-		PutMappingResponse response = EsIndexWriter.getInstance().createMapping(beanClass);
-		System.out.println("acknowledged:" + response.isAcknowledged());
+		boolean acknowledged = ElasticSearchCommandHelper.getInstance().createMapping(beanClass);
+		System.out.println("acknowledged:" + acknowledged);
 	}
 
 	private void executeGetMapping() {
-		System.out.println(EsIndexWriter.getInstance().getMapping(this.getMappingBeanClass()));
+		System.out.println(ElasticSearchCommandHelper.getInstance().getMapping(this.getMappingBeanClass()));
 	}
 
 	private void executeDeleteMapping() {
-		DeleteMappingResponse response = EsIndexWriter.getInstance().deleteMapping(this.getMappingBeanClass());
-		System.out.println("acknowledged:" + response.isAcknowledged());
+		boolean acknowledged = ElasticSearchCommandHelper.getInstance().deleteMapping(this.getMappingBeanClass());
+		System.out.println("acknowledged:" + acknowledged);
 	}
 	
 	private Class<?> getMappingBeanClass() {
@@ -119,8 +124,18 @@ public class MappingCmd implements ICommand {
 	public String getAction() {
 		return action;
 	}
+	
+	public MappingCmd withAction(String action) {
+		this.action = action;
+		return this;
+	}
 
 	public String getMappingBean() {
 		return mappingBean;
+	}
+	
+	public MappingCmd withMappingBean(String mappingBean) {
+		this.mappingBean = mappingBean;
+		return this;
 	}
 }

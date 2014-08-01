@@ -8,7 +8,6 @@ import com.github.aureliano.cli.commands.CleanCmd;
 import com.github.aureliano.cli.commands.HelpCmd;
 import com.github.aureliano.cli.commands.IndexCmd;
 import com.github.aureliano.cli.commands.MappingCmd;
-import com.github.aureliano.cli.commands.VersionCmd;
 
 /**
  * Command line options builder. This class is intended to create
@@ -45,7 +44,6 @@ public final class OptionsBuilder {
 	private static Options createDefaultOptions() {
 		Options opt = new Options();
 		opt.addOption(buildHelpOption());
-		opt.addOption(buildVersionOption());
 		opt.addOption(buildCleanOption());
 		opt.addOption(buildIndexOption());
 		opt.addOption(buildMappingOption());
@@ -95,15 +93,5 @@ public final class OptionsBuilder {
 			.withLongOpt(HelpCmd.NAME)
 			.withDescription(HelpCmd.DESCRIPTION)
 			.create('h');
-	}
-	
-	@SuppressWarnings("static-access")
-	private static final Option buildVersionOption() {
-		return OptionBuilder
-			.hasArg(false)
-			.isRequired(false)
-			.withLongOpt(VersionCmd.NAME)
-			.withDescription(VersionCmd.DESCRIPTION)
-			.create('v');
 	}
 }

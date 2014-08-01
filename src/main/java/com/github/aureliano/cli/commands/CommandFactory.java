@@ -19,8 +19,6 @@ public final class CommandFactory {
 	public static ICommand command(String name) {
 		if (HelpCmd.NAME.equals(name)) {
 			return new HelpCmd();
-		} else if (VersionCmd.NAME.equals(name)) {
-			return new VersionCmd();
 		} else if (CleanCmd.NAME.equals(name)) {
 			return new CleanCmd();
 		} else if (MappingCmd.NAME.equals(name)) {

@@ -27,6 +27,14 @@ public class CleanCmd implements ICommand {
 	
 	/**
 	 * Execute clean command.
+	 */
+	@Override
+	public void execute() {
+		this.execute(null);
+	}
+	
+	/**
+	 * Execute clean command.
 	 * 
 	 * @param option - Command line option {@link org.apache.commons.cli.Option}
 	 */

@@ -7,5 +7,7 @@ import org.apache.commons.cli.Option;
  */
 public interface ICommand {
 
+	public abstract void execute();
+	
 	public abstract void execute(Option option);
 }
