@@ -34,4 +34,12 @@ public final class EsIndexerUtil {
 					" does not contain annotation " + ESIndex.class.getName());
 		}
 	}
+	
+	public static Class<?> getMappingBeanClass(String className) {
+		try {
+			return Class.forName(className);
+		} catch (ClassNotFoundException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 }

@@ -5,8 +5,8 @@ import java.util.Arrays;
 import org.apache.commons.cli.Option;
 import org.apache.log4j.Logger;
 
-import com.github.aureliano.annotation.ESIndex;
 import com.github.aureliano.es.ElasticSearchCommandHelper;
+import com.github.aureliano.util.EsIndexerUtil;
 
 /**
  * Command line class executor. Execute actions on ElasticSearch
@@ -72,36 +72,20 @@ public class MappingCmd implements ICommand {
 	}
 
 	private void executeCreateMapping() {
-		Class<?> beanClass = this.getMappingBeanClass();
-		ElasticSearchCommandHelper indexHelper = ElasticSearchCommandHelper.getInstance();
-		
-		if (!indexHelper.indexExist(beanClass)) {
-			ESIndex annotation = beanClass.getAnnotation(ESIndex.class);
-			String message = "Index %s does not exist. You must create it before you create a type.";
-			message = message.replaceFirst("%s", (annotation == null ? "" : annotation.name()));
-			
-			throw new RuntimeException(message);
-		}
-		
+		Class<?> beanClass = EsIndexerUtil.getMappingBeanClass(this.mappingBean);
 		boolean acknowledged = ElasticSearchCommandHelper.getInstance().createMapping(beanClass);
 		System.out.println("acknowledged:" + acknowledged);
 	}
 
 	private void executeGetMapping() {
-		System.out.println(ElasticSearchCommandHelper.getInstance().getMapping(this.getMappingBeanClass()));
+		Class<?> beanClass = EsIndexerUtil.getMappingBeanClass(this.mappingBean);
+		System.out.println(ElasticSearchCommandHelper.getInstance().getMapping(beanClass));
 	}
 
 	private void executeDeleteMapping() {
-		boolean acknowledged = ElasticSearchCommandHelper.getInstance().deleteMapping(this.getMappingBeanClass());
+		Class<?> beanClass = EsIndexerUtil.getMappingBeanClass(this.mappingBean);
+		boolean acknowledged = ElasticSearchCommandHelper.getInstance().deleteMapping(beanClass);
 		System.out.println("acknowledged:" + acknowledged);
-	}
-	
-	private Class<?> getMappingBeanClass() {
-		try {
-			return Class.forName(this.mappingBean);
-		} catch (ClassNotFoundException ex) {
-			throw new RuntimeException(ex);
-		}
 	}
 
 	private void loadParameters(Option option) {

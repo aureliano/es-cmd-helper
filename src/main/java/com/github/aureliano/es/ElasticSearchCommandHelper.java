@@ -9,6 +9,7 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
 import com.github.aureliano.ElasticSearchConfig;
+import com.github.aureliano.annotation.ESIndex;
 
 public class ElasticSearchCommandHelper {
 
@@ -104,6 +105,14 @@ public class ElasticSearchCommandHelper {
 	
 	public boolean createMapping(Class<?> mappingClass) {
 		this.startElasticSearchClient();
+		if (!EsIndexDataStructure.indexExist(this.clientElasticSearch, mappingClass)) {
+			ESIndex annotation = mappingClass.getAnnotation(ESIndex.class);
+			String message = "Index %s does not exist. You must create it before you create a type.";
+			message = message.replaceFirst("%s", (annotation == null ? "" : annotation.name()));
+			
+			throw new RuntimeException(message);
+		}
+		
 		PutMappingResponse response = EsIndexDataStructure.createMapping(this.clientElasticSearch, mappingClass);
 		if (this.configurationElasticSearch.isAutomaticClientClose()) {
 			this.shutdownElasticSearchClient();
@@ -124,6 +133,14 @@ public class ElasticSearchCommandHelper {
 	
 	public boolean deleteMapping(Class<?> mappingClass) {
 		this.startElasticSearchClient();
+		if (!EsIndexDataStructure.indexExist(this.clientElasticSearch, mappingClass)) {
+			ESIndex annotation = mappingClass.getAnnotation(ESIndex.class);
+			String message = "Index %s does not exist. You must create it before you create a type.";
+			message = message.replaceFirst("%s", (annotation == null ? "" : annotation.name()));
+			
+			throw new RuntimeException(message);
+		}
+		
 		DeleteMappingResponse response = EsIndexDataStructure.deleteMapping(this.clientElasticSearch, mappingClass);
 		if (this.configurationElasticSearch.isAutomaticClientClose()) {
 			this.shutdownElasticSearchClient();
@@ -140,6 +157,7 @@ public class ElasticSearchCommandHelper {
 	
 	public void shutdownElasticSearchClient() {
 		this.clientElasticSearch.close();
+		this.clientElasticSearch = null;
 	}
 	
 	private Client configureNewClient() {
