@@ -1,11 +1,15 @@
 package com.github.aureliano.es;
 
+import java.util.Properties;
+
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
 import com.github.aureliano.ElasticSearchConfig;
@@ -16,9 +20,10 @@ public class ElasticSearchCommandHelper {
 	private static ElasticSearchCommandHelper instance;
 	private Client clientElasticSearch;
 	private ElasticSearchConfig configurationElasticSearch;
+	private Properties settingAttributes;
 	
 	private ElasticSearchCommandHelper() {
-		super();
+		this.settingAttributes = new Properties();
 	}
 	
 	/**
@@ -41,6 +46,15 @@ public class ElasticSearchCommandHelper {
 	
 	public ElasticSearchConfig elasticSearchConfiguration() {
 		return this.configurationElasticSearch;
+	}
+	
+	public ElasticSearchCommandHelper putSetting(String key, String value) {
+		this.settingAttributes.setProperty(key, value);
+		return this;
+	}
+	
+	public String getSetting(String key) {
+		return this.settingAttributes.getProperty(key);
 	}
 	
 	public boolean indexExist(Class<?> mappingClass) {
@@ -165,7 +179,14 @@ public class ElasticSearchCommandHelper {
 			this.configurationElasticSearch = ElasticSearchConfig.loadConfigurationFromFile();
 		}
 		
-		return new TransportClient().addTransportAddress(
+		Settings settings = null;
+		if (!this.settingAttributes.isEmpty()) {
+			settings = ImmutableSettings.settingsBuilder().put(this.settingAttributes).build();			
+		}
+		
+		TransportClient transportClient = (settings == null) ? new TransportClient() : new TransportClient(settings);
+		
+		return transportClient.addTransportAddress(
 			new InetSocketTransportAddress(
 				this.configurationElasticSearch.getElasticSearchHost(),
 				this.configurationElasticSearch.getTransportClientPort()
