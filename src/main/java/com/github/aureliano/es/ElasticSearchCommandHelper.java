@@ -14,6 +14,8 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
 import com.github.aureliano.ElasticSearchConfig;
 import com.github.aureliano.annotation.ESIndex;
+import com.github.aureliano.util.EsIndexerUtil;
+import com.github.kzwang.osem.api.ElasticSearchIndexer;
 
 public class ElasticSearchCommandHelper {
 
@@ -161,6 +163,14 @@ public class ElasticSearchCommandHelper {
 		}
 		
 		return (response != null) ? response.isAcknowledged() : false;
+	}
+	
+	public ElasticSearchIndexer getElasticSearchIndexer(String indexName) {
+		return EsIndexerUtil.getElasticSearchIndexer(this.clientElasticSearch, indexName);
+	}
+	
+	public ElasticSearchIndexer getElasticSearchIndexer(Class<?> indexClass) {
+		return EsIndexerUtil.getElasticSearchIndexer(this.clientElasticSearch, indexClass);
 	}
 	
 	public void startElasticSearchClient() {
